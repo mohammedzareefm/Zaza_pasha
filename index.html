@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Youssef Zaza — Web Design &amp; Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-top: #465370;
+      --bg-mid: #7d6d7a;
+      --bg-sunset: #c99481;
+      --bg-deep: #111322;
+      --card: #191919;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --pill-shell: rgba(24, 24, 26, 0.56);
+      --pill-btn: #161616;
+      --text-white: #f7f7f8;
+      --text-dark: #151517;
+      --text-muted: rgba(255, 255, 255, 0.72);
+      --green-dot: #20b46a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+      max-width: 100%;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-white);
+      background: linear-gradient(
+        180deg,
+        #44516e 0%,
+        #666b85 11%,
+        #b49a9f 22%,
+        #75697e 34%,
+        #cca191 45%,
+        #7c6c82 56%,
+        #d6a38d 68%,
+        #191b2e 79%,
+        #0f1120 100%
+      );
+      min-height: 100vh;
+      max-width: 100%;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html[dir="rtl"] body {
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .sky-clouds {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 320px 110px at 88% 28%, rgba(255, 244, 238, 0.32) 0%, transparent 70%),
+        radial-gradient(ellipse 260px 90px at 14% 48%, rgba(255, 238, 228, 0.24) 0%, transparent 70%),
+        radial-gradient(ellipse 340px 120px at 85% 63%, rgba(255, 235, 220, 0.22) 0%, transparent 70%);
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: clip;
+    }
+
+    .nav-wrap {
+      position: fixed;
+      top: 14px;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      padding: 0 14px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-pill {
+      width: 100%;
+      max-width: 680px;
+      background: var(--pill-shell);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #141414;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #111113;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-desktop-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-desktop-links a {
+      color: #151517;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      opacity: 0.82;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-desktop-links a:hover {
+      opacity: 1;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-cta {
+      background: var(--pill-btn);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 999px;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+    }
+
+    .lang-chip {
+      background: rgba(22, 22, 22, 0.72);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .menu-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--pill-btn);
+      border: none;
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .menu-dropdown {
+      position: fixed;
+      top: 76px;
+      right: 18px;
+      width: 260px;
+      background: #1a1a1a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 26px;
+      padding: 24px 20px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      z-index: 95;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+    }
+
+    html[dir="rtl"] .menu-dropdown {
+      right: auto;
+      left: 18px;
+    }
+
+    .menu-dropdown.open {
+      display: flex;
+    }
+
+    .menu-dropdown a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero {
+      padding-top: 132px;
+      padding-bottom: 40px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.35rem, 7.6vw, 4.1rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      color: var(--text-dark);
+      max-width: 640px;
+      margin: 0 auto 20px;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.8vw, 1.22rem);
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 440px;
+      margin: 0 auto 28px;
+      font-weight: 500;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #171717;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 15px 34px;
+      border-radius: 999px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22);
+      transition: transform 0.2s ease;
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .status-line {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .status-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--green-dot);
+      box-shadow: 0 0 0 4px rgba(32, 180, 106, 0.22);
+    }
+
+    .showcase-fan {
+      margin: 44px auto 12px;
+      width: 100%;
+      max-width: 420px;
+      height: 310px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .fan-card {
+      position: absolute;
+      width: 240px;
+      height: 290px;
+      border-radius: 22px;
+      padding: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      border: 3px solid #161616;
+      text-align: start;
+      transition: transform 0.25s ease;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .fan-back-right {
+      background: #f3efe4;
+      color: #181818;
+      transform: translateX(74px) translateY(-12px) rotate(9deg);
+      z-index: 1;
+    }
+
+    .fan-mid {
+      background: #77b5e5;
+      color: #102030;
+      transform: translateX(30px) translateY(-18px) rotate(3deg);
+      z-index: 2;
+    }
+
+    .fan-front {
+      background: #121212;
+      color: #ffffff;
+      transform: translateX(-34px) rotate(-4deg);
+      z-index: 3;
+    }
+
+    .fan-front:hover {
+      transform: translateX(-34px) translateY(-6px) rotate(-2deg);
+    }
+
+    .mock-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .mock-kicker {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+      margin-bottom: 4px;
+    }
+
+    .mock-title {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .mock-preview {
+      height: 155px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #5e3824 0%, #a5643b 48%, #2a1810 100%);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .mock-preview span {
+      font-size: 0.72rem;
+      background: rgba(0, 0, 0, 0.55);
+      padding: 5px 10px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+
+    .section-block {
+      padding: 64px 0 24px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 6.2vw, 3.1rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      color: #ffffff;
+      margin-bottom: 14px;
+    }
+
+    .section-lead {
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.82);
+      max-width: 470px;
+      margin: 0 auto 36px;
+    }
+
+    .stack-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 460px;
+      margin: 0 auto;
+      text-align: start;
+    }
+
+    .dark-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px 22px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.24);
+      position: relative;
+    }
+
+    .dark-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .dark-card-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-icon {
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .dark-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .card-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.38);
+      flex-shrink: 0;
+    }
+
+    .dark-card p {
+      font-size: 0.92rem;
+      line-height: 1.62;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .about-story {
+      font-size: 1.02rem;
+      line-height: 1.72;
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 460px;
+      margin: 0 auto 36px;
+    }
+
+    .polaroid-fan {
+      width: 100%;
+      max-width: 340px;
+      height: 250px;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .polaroid {
+      position: absolute;
+      width: 210px;
+      height: 235px;
+      background: #141414;
+      border-radius: 16px;
+      padding: 12px 12px 30px;
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.35);
+    }
+
+    .p-1 {
+      transform: translateX(-28px) rotate(-11deg);
+      background: #1c1c1c;
+    }
+
+    .p-2 {
+      transform: translateX(-14px) rotate(-6deg);
+      background: #181818;
+    }
+
+    .p-3 {
+      transform: translateX(6px) rotate(2deg);
+    }
+
+    .polaroid-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(155deg, #d8cfc2 0%, #9b8876 55%, #3d352e 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #141414;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .polaroid-inner small {
+      font-size: 0.75rem;
+      font-weight: 600;
+      opacity: 0.75;
+      margin-top: 6px;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 460px;
+      margin: 0 auto;
+      text-align: start;
+    }
+
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .faq-btn {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      text-align: start;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.35;
+      cursor: pointer;
+    }
+
+    .faq-plus {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ffffff;
+      color: #141414;
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .faq-item.open .faq-plus {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 22px 20px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    .contact-card {
+      background: #1c1c1e;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 26px 20px 28px;
+      max-width: 460px;
+      margin: 0 auto;
+      text-align: start;
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.35);
+    }
+
+    .stamp-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 22px;
+    }
+
+    .postage-stamp {
+      width: 108px;
+      height: 128px;
+      padding: 7px;
+      background:
+        radial-gradient(circle at 0 50%, #1c1c1e 4px, transparent 5px) 0 0 / 14px 14px repeat-y,
+        radial-gradient(circle at 100% 50%, #1c1c1e 4px, transparent 5px) 100% 0 / 14px 14px repeat-y,
+        radial-gradient(circle at 50% 0, #1c1c1e 4px, transparent 5px) 0 0 / 14px 14px repeat-x,
+        radial-gradient(circle at 50% 100%, #1c1c1e 4px, transparent 5px) 0 100% / 14px 14px repeat-x,
+        #dcdad3;
+      border-radius: 4px;
+      display: grid;
+      place-items: center;
+    }
+
+    .stamp-art {
+      width: 82px;
+      height: 102px;
+      background: linear-gradient(180deg, #9ec5e5 0%, #dbe9f4 68%, #c9b594 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 8px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .form-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .field-input,
+    .field-select,
+    .field-area {
+      width: 100%;
+      background: #171718;
+      border: 2px solid #2b2b2e;
+      border-radius: 999px;
+      padding: 15px 20px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.94rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .field-area {
+      border-radius: 22px;
+      min-height: 112px;
+      resize: vertical;
+    }
+
+    .field-input:focus,
+    .field-select:focus,
+    .field-area:focus {
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .submit-pill {
+      width: 100%;
+      background: #ffffff;
+      color: #141414;
+      border: none;
+      border-radius: 999px;
+      padding: 15px 24px;
+      font-family: inherit;
+      font-size: 0.98rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .form-note {
+      font-size: 0.84rem;
+      color: var(--green-dot);
+      text-align: center;
+      display: none;
+      margin-top: 6px;
+    }
+
+    .form-note.show {
+      display: block;
+    }
+
+    footer {
+      padding: 48px 20px 36px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.84rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.78);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    @media (max-width: 680px) {
+      .nav-desktop-links {
+        display: none;
+      }
+      .fan-card {
+        width: 205px;
+        height: 265px;
+      }
+      .fan-back-right {
+        transform: translateX(52px) translateY(-10px) rotate(8deg);
+      }
+      .fan-mid {
+        transform: translateX(18px) translateY(-15px) rotate(3deg);
+      }
+      .fan-front {
+        transform: translateX(-24px) rotate(-4deg);
+      }
+      .fan-front:hover {
+        transform: translateX(-24px) translateY(-6px) rotate(-2deg);
+      }
+      .polaroid {
+        width: 185px;
+        height: 215px;
+      }
+    }
+
+    @media (min-width: 681px) {
+      .menu-circle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sky-clouds"></div>
+
+  <div class="page-shell">
+    <div class="nav-wrap">
+      <header class="nav-pill">
+        <a href="#home" class="nav-left">
+          <span class="logo-circle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3L6 9H10L5 14H10L4 19H20L14 14H19L14 9H18L12 3Z" fill="#ffffff"/>
+              <rect x="10.8" y="18" width="2.4" height="3.5" fill="#ffffff"/>
+            </svg>
+          </span>
+          <span class="brand-name" id="brandText">youssef</span>
+        </a>
+
+        <nav class="nav-desktop-links">
+          <a href="#home" id="dHome">Home</a>
+          <a href="#work" id="dWork">Work</a>
+          <a href="#process" id="dPricing">Process</a>
+          <a href="#contact" id="dContact">Contact</a>
+        </nav>
+
+        <div class="nav-right">
+          <button type="button" class="lang-chip" id="langBtn">AR</button>
+          <a href="#contact" class="nav-cta" id="navCta">Book a call</a>
+          <button type="button" class="menu-circle" id="menuToggle" aria-label="Menu">
+            <svg id="iconBars" width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M4 7H20M4 12H20M4 17H20" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+            <svg id="iconClose" width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:none;">
+              <path d="M6 6L18 18M18 6L6 18" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+    </div>
+
+    <div class="menu-dropdown" id="mobileMenu">
+      <a href="#home" class="m-link" id="mHome">Home</a>
+      <a href="#work" class="m-link" id="mWork">Work</a>
+      <a href="#process" class="m-link" id="mPricing">Process</a>
+      <a href="#contact" class="m-link" id="mContact">Contact</a>
+    </div>
+
+    <main>
+      <section class="hero container" id="home">
+        <h1 id="heroTitle">Design that wins in a sea of AI slop</h1>
+        <p class="hero-sub" id="heroSub">
+          I build fast front-end sites for founders who hate generic templates
+        </p>
+        <a href="#contact" class="hero-btn" id="heroBtn">Book a call</a>
+        <div>
+          <div class="status-line">
+            <span class="status-dot"></span>
+            <span id="statusText">Open for a couple of builds this month</span>
+          </div>
+        </div>
+
+        <div class="showcase-fan" id="work">
+          <div class="fan-card fan-back-right">
+            <div class="mock-bar">
+              <span>notes.app</span>
+              <span>02 PM</span>
+            </div>
+            <div class="mock-kicker">TASK FLOW</div>
+            <div class="mock-title">Daily List</div>
+            <div style="background:#fff;border-radius:10px;padding:12px;font-size:0.78rem;color:#333;">
+              Clean cards, fast shortcuts, zero clutter.
+            </div>
+          </div>
+
+          <div class="fan-card fan-mid">
+            <div class="mock-bar">
+              <span>studio.ui</span>
+              <span>&#9776;</span>
+            </div>
+            <div class="mock-kicker">INTERFACE</div>
+            <div class="mock-title">Creator Kit</div>
+            <div style="background:rgba(255,255,255,0.65);border-radius:10px;padding:12px;font-size:0.78rem;color:#102030;">
+              Responsive blocks crafted for mobile &amp; desktop.
+            </div>
+          </div>
+
+          <div class="fan-card fan-front">
+            <div class="mock-bar">
+              <span style="font-family:Georgia,serif;font-style:italic;">sovereign bloc</span>
+              <span>&#9776;</span>
+            </div>
+            <div class="mock-kicker">&larr; WORK</div>
+            <div class="mock-title">CREATIVE STUDIO</div>
+            <div class="mock-preview">
+              <span id="previewTag">Live Prototype &rarr;</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block container" id="why">
+        <h2 class="section-title" id="whyTitle">Why Youssef</h2>
+        <p class="section-lead" id="whyLead">
+          Half the sites online look like the same prompt run ten times. Real care and human judgment still show immediately
+        </p>
+
+        <div class="stack-cards">
+          <article class="dark-card">
+            <div class="dark-card-head">
+              <div class="dark-card-title-row">
+                <span class="card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 11c-1.5-3.5-5.5-6-8-4.5s-1.5 6 1.5 7.5c-2 1.5-1.5 5 1 5.5s4.5-1.5 5.5-4c1 2.5 3 4.5 5.5 4s3-4 1-5.5c3-1.5 4-6 1.5-7.5S13.5 7.5 12 11z"/>
+                  </svg>
+                </span>
+                <h3 id="w1Title">Taste first</h3>
+              </div>
+              <span class="card-dot"></span>
+            </div>
+            <p id="w1Desc">
+              Generic output happens when nobody steers. I pick the spacing, type, and layout myself—tools just save me typing.
+            </p>
+          </article>
+
+          <article class="dark-card">
+            <div class="dark-card-head">
+              <div class="dark-card-title-row">
+                <span class="card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-4 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm4 6a1.2 1.2 0 1 0 0 2.4A1.2 1.2 0 0 0 8 10zm4 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zm4 0a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"/>
+                  </svg>
+                </span>
+                <h3 id="w2Title">No middlemen</h3>
+              </div>
+            </div>
+            <p id="w2Desc">
+              You message me directly. No account managers repeating things back wrong or turning a simple tweak into a meeting.
+            </p>
+          </article>
+
+          <article class="dark-card">
+            <div class="dark-card-head">
+              <div class="dark-card-title-row">
+                <span class="card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5 3l14 9-6.5 1.8L10.7 20 5 3z"/>
+                  </svg>
+                </span>
+                <h3 id="w3Title">Built to sell</h3>
+              </div>
+            </div>
+            <p id="w3Desc">
+              A pretty page that confuses visitors does nothing. Every block has a clear job so people actually get what you offer.
+            </p>
+          </article>
+
+          <article class="dark-card">
+            <div class="dark-card-head">
+              <div class="dark-card-title-row">
+                <span class="card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <ellipse cx="12" cy="6" rx="8" ry="3"/>
+                    <path d="M4 10v3c0 1.7 3.6 3 8 3s8-1.3 8-3v-3c-1.7 1.3-4.7 2-8 2s-6.3-.7-8-2zm0 5v3c0 1.7 3.6 3 8 3s8-1.3 8-3v-3c-1.7 1.3-4.7 2-8 2s-6.3-.7-8-2z"/>
+                  </svg>
+                </span>
+                <h3 id="w4Title">Easy to manage</h3>
+              </div>
+            </div>
+            <p id="w4Desc">
+              Straightforward HTML, CSS, and JS structure that stays clean when you add sections or hand things off later.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block container" id="about">
+        <h2 class="section-title" id="aboutTitle">Behind the<br>scenes</h2>
+        <p class="about-story" id="aboutStory">
+          I'm Youssef Zaza from Egypt. Started out tinkering with HTML and CSS on my phone and desk setups, and I just kept building because I liked seeing rough ideas turn into real screens. Nothing complicated or stiff—just honest front-end work, quick back-and-forth, and sites that feel alive. Here's a quick peek at the work:
+        </p>
+
+        <div class="polaroid-fan">
+          <div class="polaroid p-1">
+            <div class="polaroid-inner">UI Lab</div>
+          </div>
+          <div class="polaroid p-2">
+            <div class="polaroid-inner">Code &amp; Craft</div>
+          </div>
+          <div class="polaroid p-3">
+            <div class="polaroid-inner">
+              Youssef Zaza
+              <small id="polaroidSub">Front-end & UI</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block container" id="process">
+        <h2 class="section-title" id="procTitle">How I work</h2>
+        <p class="section-lead" id="procLead">
+          Four simple stages so you're never left guessing where things stand
+        </p>
+
+        <div class="stack-cards">
+          <article class="dark-card">
+            <div class="dark-card-head">
+              <div class="dark-card-title-row">
+                <span class="card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
+                    <line x1="9" y1="3" x2="9" y2="18"/>
+                    <line x1="15" y1="6" x2="15" y2="21"/>
+                  </svg>
+                </span>
+                <h3 id="p1Title">Discovery</h3>
+              </div>
+            </div>
+            <p id="p1Desc">
+              Quick chat about what you're building, who needs to see it, and what feels off right now.
+            </p>
+          </article>
+
+          <article class="dark-card">
+            <div class="dark-card-head">
+              <div class="dark-card-title-row">
+                <span class="card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="7" cy="15" r="4"/>
+                    <circle cx="17" cy="15" r="4"/>
+                    <path d="M5 11l2-5h3l1 5M19 11l-2-5h-3l-1 5"/>
+                  </svg>
+                </span>
+                <h3 id="p2Title">Finding the vibe</h3>
+              </div>
+              <span class="card-dot"></span>
+            </div>
+            <p id="p2Desc">
+              Rough color notes, mood, and font pairing first—no wasting hours polishing the wrong direction.
+            </p>
+          </article>
+
+          <article class="dark-card">
+            <div class="dark-card-head">
+              <div class="dark-card-title-row">
+                <span class="card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="5" width="14" height="10" rx="2"/>
+                    <path d="M17 8h4v9a2 2 0 0 1-2 2H7"/>
+                  </svg>
+                </span>
+                <h3 id="p3Title">Design magic</h3>
+              </div>
+            </div>
+            <p id="p3Desc">
+              I put together the layout and code it up piece by piece, sending updates as it takes shape.
+            </p>
+          </article>
+
+          <article class="dark-card">
+            <div class="dark-card-head">
+              <div class="dark-card-title-row">
+                <span class="card-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 3c2 3 4 4.5 4 7a4 4 0 1 1-8 0c0-2.5 2-4 4-7z"/>
+                    <path d="M5 19l14-3M5 16l14 3"/>
+                  </svg>
+                </span>
+                <h3 id="p4Title">Ready, set, launch</h3>
+              </div>
+              <span class="card-dot"></span>
+            </div>
+            <p id="p4Desc">
+              We check every screen size, fix small rough edges, and push it live. If you need changes later, I'm around.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block container" id="faq">
+        <h2 class="section-title" id="faqTitle">Frequently asked questions</h2>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button type="button" class="faq-btn">
+              <span id="q1">Who will I be working with?</span>
+              <span class="faq-plus">+</span>
+            </button>
+            <div class="faq-answer" id="a1">
+              Just me, Youssef. From first message to launch, you're talking straight to the person writing the code and laying out the page.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-btn">
+              <span id="q2">Do you use AI?</span>
+              <span class="faq-plus">+</span>
+            </button>
+            <div class="faq-answer" id="a2">
+              Sometimes to speed up grunt work or test ideas faster, never to blindly spit out a whole site without real direction.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-btn">
+              <span id="q3">How much does a website cost?</span>
+              <span class="faq-plus">+</span>
+            </button>
+            <div class="faq-answer" id="a3">
+              Depends on scope—a single landing page isn't the same as a multi-section build. Tell me what you need and I'll give a straight number.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-btn">
+              <span id="q4">How long does it take?</span>
+              <span class="faq-plus">+</span>
+            </button>
+            <div class="faq-answer" id="a4">
+              Usually around two weeks for standard pages, though bigger or custom builds can take a bit longer depending on feedback.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-btn">
+              <span id="q5">Can you redesign or migrate our current site?</span>
+              <span class="faq-plus">+</span>
+            </button>
+            <div class="faq-answer" id="a5">
+              Yep. If your current site feels dated, heavy, or broken on mobile, we can rebuild it cleanly without losing what matters.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block container" id="contact">
+        <h2 class="section-title" id="chatTitle">Let's chat</h2>
+        <p class="section-lead" id="chatLead">
+          Got a launch coming up, a rough idea, or a site that needs fixing? Drop a note and I'll reply within a day
+        </p>
+
+        <div class="contact-card">
+          <div class="stamp-row">
+            <div class="postage-stamp">
+              <div class="stamp-art">
+                <svg width="46" height="68" viewBox="0 0 46 68" fill="none">
+                  <rect x="21" y="32" width="4" height="36" fill="#6b5138"/>
+                  <path d="M23 32C15 24 8 26 4 31C10 31 16 32 23 32Z" fill="#3a6b35"/>
+                  <path d="M23 32C31 24 38 26 42 31C36 31 30 32 23 32Z" fill="#3a6b35"/>
+                  <path d="M23 30C16 18 9 18 6 22C12 23 18 26 23 30Z" fill="#4b8444"/>
+                  <path d="M23 30C30 18 37 18 40 22C34 23 28 26 23 30Z" fill="#4b8444"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <form class="form-stack" id="chatForm">
+            <input type="text" class="field-input" id="fName" placeholder="Name" required />
+            <input type="email" class="field-input" id="fEmail" placeholder="Email" required />
+            <input type="text" class="field-input" id="fWeb" placeholder="Website (optional)" />
+            <select class="field-select" id="fPack">
+              <option value="" id="opt0">Choose a package</option>
+              <option value="landing" id="opt1">Landing Page (2 Weeks)</option>
+              <option value="full" id="opt2">Full Website + Dev</option>
+              <option value="redesign" id="opt3">Redesign &amp; Polish</option>
+            </select>
+            <textarea class="field-area" id="fMsg" placeholder="Tell me a bit about what you're making."></textarea>
+            <button type="submit" class="submit-pill" id="fSubmit">Send message</button>
+            <div class="form-note" id="fDone">Got it—thanks for reaching out. I'll get back to you within 24 hours.</div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-links">
+        <a href="#home" id="ftHome">Home</a>
+        <a href="#work" id="ftWork">Work</a>
+        <a href="#process" id="ftProc">Process</a>
+        <a href="#contact" id="ftCont">Contact</a>
+      </div>
+      <div id="ftCopy">&copy; 2026 Youssef Zaza</div>
+    </footer>
+  </div>
+
+  <script>
+    var menuToggle = document.getElementById("menuToggle");
+    var mobileMenu = document.getElementById("mobileMenu");
+    var iconBars = document.getElementById("iconBars");
+    var iconClose = document.getElementById("iconClose");
+
+    function setMenu(open) {
+      mobileMenu.classList.toggle("open", open);
+      iconBars.style.display = open ? "none" : "block";
+      iconClose.style.display = open ? "block" : "none";
+    }
+
+    menuToggle.onclick = function() {
+      setMenu(!mobileMenu.classList.contains("open"));
+    };
+
+    var mLinks = document.querySelectorAll(".m-link");
+    for (var i = 0; i < mLinks.length; i++) {
+      mLinks[i].onclick = function() {
+        setMenu(false);
+      };
+    }
+
+    var faqItems = document.querySelectorAll(".faq-item");
+    for (var f = 0; f < faqItems.length; f++) {
+      faqItems[f].querySelector(".faq-btn").onclick = function() {
+        var parent = this.parentElement;
+        var wasOpen = parent.classList.contains("open");
+        for (var k = 0; k < faqItems.length; k++) {
+          faqItems[k].classList.remove("open");
+        }
+        if (!wasOpen) parent.classList.add("open");
+      };
+    }
+
+    document.getElementById("chatForm").onsubmit = function(e) {
+      e.preventDefault();
+      var done = document.getElementById("fDone");
+      done.classList.add("show");
+      this.reset();
+      setTimeout(function() {
+        done.classList.remove("show");
+      }, 3500);
+    };
+
+    var copy = {
+      en: {
+        brand: "youssef",
+        lang: "AR",
+        home: "Home",
+        work: "Work",
+        proc: "Process",
+        contact: "Contact",
+        cta: "Book a call",
+        heroTitle: "Design that wins in a sea of AI slop",
+        heroSub: "I build fast front-end sites for founders who hate generic templates",
+        status: "Open for a couple of builds this month",
+        whyTitle: "Why Youssef",
+        whyLead: "Half the sites online look like the same prompt run ten times. Real care and human judgment still show immediately",
+        w1Title: "Taste first",
+        w1Desc: "Generic output happens when nobody steers. I pick the spacing, type, and layout myself—tools just save me typing.",
+        w2Title: "No middlemen",
+        w2Desc: "You message me directly. No account managers repeating things back wrong or turning a simple tweak into a meeting.",
+        w3Title: "Built to sell",
+        w3Desc: "A pretty page that confuses visitors does nothing. Every block has a clear job so people actually get what you offer.",
+        w4Title: "Easy to manage",
+        w4Desc: "Straightforward HTML, CSS, and JS structure that stays clean when you add sections or hand things off later.",
+        aboutTitle: "Behind the<br>scenes",
+        aboutStory: "I'm Youssef Zaza from Egypt. Started out tinkering with HTML and CSS on my phone and desk setups, and I just kept building because I liked seeing rough ideas turn into real screens. Nothing complicated or stiff—just honest front-end work, quick back-and-forth, and sites that feel alive. Here's a quick peek at the work:",
+        polaroidSub: "Front-end & UI",
+        procTitle: "How I work",
+        procLead: "Four simple stages so you're never left guessing where things stand",
+        p1Title: "Discovery",
+        p1Desc: "Quick chat about what you're building, who needs to see it, and what feels off right now.",
+        p2Title: "Finding the vibe",
+        p2Desc: "Rough color notes, mood, and font pairing first—no wasting hours polishing the wrong direction.",
+        p3Title: "Design magic",
+        p3Desc: "I put together the layout and code it up piece by piece, sending updates as it takes shape.",
+        p4Title: "Ready, set, launch",
+        p4Desc: "We check every screen size, fix small rough edges, and push it live. If you need changes later, I'm around.",
+        faqTitle: "Frequently asked questions",
+        q1: "Who will I be working with?",
+        a1: "Just me, Youssef. From first message to launch, you're talking straight to the person writing the code and laying out the page.",
+        q2: "Do you use AI?",
+        a2: "Sometimes to speed up grunt work or test ideas faster, never to blindly spit out a whole site without real direction.",
+        q3: "How much does a website cost?",
+        a3: "Depends on scope—a single landing page isn't the same as a multi-section build. Tell me what you need and I'll give a straight number.",
+        q4: "How long does it take?",
+        a4: "Usually around two weeks for standard pages, though bigger or custom builds can take a bit longer depending on feedback.",
+        q5: "Can you redesign or migrate our current site?",
+        a5: "Yep. If your current site feels dated, heavy, or broken on mobile, we can rebuild it cleanly without losing what matters.",
+        chatTitle: "Let's chat",
+        chatLead: "Got a launch coming up, a rough idea, or a site that needs fixing? Drop a note and I'll reply within a day",
+        fName: "Name",
+        fEmail: "Email",
+        fWeb: "Website (optional)",
+        opt0: "Choose a package",
+        opt1: "Landing Page (~2 Weeks)",
+        opt2: "Full Website + Dev",
+        opt3: "Redesign & Polish",
+        fMsg: "Tell me a bit about what you're making.",
+        fSubmit: "Send message",
+        fDone: "Got it—thanks for reaching out. I'll get back to you within 24 hours.",
+        ftCopy: "© 2026 Youssef Zaza"
+      },
+      ar: {
+        brand: "يوسف",
+        lang: "EN",
+        home: "الرئيسية",
+        work: "الأعمال",
+        proc: "الخطوات",
+        contact: "تواصل",
+        cta: "احجز مكالمة",
+        heroTitle: "تصميم يميّز موقعك وسط زحام القوالب الجاهزة",
+        heroSub: "ببني مواقع واجهات أمامية لأصحاب المشاريع اللي زهقوا من الشكل الجاهز المكرر",
+        status: "متاح لعدد محدود من المشاريع حالياً",
+        whyTitle: "لماذا تختارني",
+        whyLead: "أغلب المواقع بقت شبه بعضها. الاهتمام بالتفاصيل الصغيرة والذوق الشخصي بيفرق من أول ثانية",
+        w1Title: "الذوق أولاً",
+        w1Desc: "الشكل العشوائي بيطلع لما مفيش حد موجه. أنا اللي بختار المسافات والألوان والخط بنفسي، والأدوات مجرد مساعدة.",
+        w2Title: "تواصل مباشر",
+        w2Desc: "كلامك معايا أنا على طول، مفيش وسيط ينقل الكلام ناقص ولا لف ودوران كتير على تعديل بسيط.",
+        w3Title: "مصمم للإقناع",
+        w3Desc: "الموقع مش مجرد ألوان حلوة وخلاص؛ كل جزء لازم يوضح فكرتك بسرعة ويخلي الزائر يفهم إنت بتقدم إيه.",
+        w4Title: "سهل التعديل",
+        w4Desc: "كود بسيط ومفهوم يسهل عليك تزود قسم أو تغير نص بعدين من غير ما الدنيا تبوظ.",
+        aboutTitle: "خلف<br>الكواليس",
+        aboutStory: "أنا يوسف زازا من مصر. بدأت أتعلم HTML و CSS و JavaScript وحبيت فكرة إنك تكتب سطور وتلاقيها قدامك صفحة حقيقية بتتفاعل. بحب الشغل يكون هادي ومباشر ومن غير تعقيد زيادة. دي لقطات سريعة من الشغل:",
+        polaroidSub: "مطور واجهات ويب",
+        procTitle: "كيف أعمل",
+        procLead: "أربع خطوات بسيطة تخليك عارف إحنا فين وإيه اللي جاي",
+        p1Title: "الاستكشاف",
+        p1Desc: "نتكلم شوية عن فكرة المشروع، مين اللي هيزوره، وإيه المشكلة في الشكل الحالي لو فيه موقع أصلاً.",
+        p2Title: "تحديد الهوية",
+        p2Desc: "نظبط الألوان والخطوط والإحساس العام الأول عشان ما نضيعش وقت في اتجاه مش مناسب.",
+        p3Title: "التصميم والتطوير",
+        p3Desc: "أبدأ أركب الصفحة وأكتب الكود وأبعتلك التحديثات أول بأول عشان نشوف الشكل على أرض الواقع.",
+        p4Title: "الإطلاق",
+        p4Desc: "نراجع الموبايل والكمبيوتر، نظبط أي ملاحظة أخيرة، ونرفع الموقع. ولو احتجت تعديلات بعدين أنا موجود.",
+        faqTitle: "الأسئلة الشائعة",
+        q1: "مع من سأتواصل أثناء المشروع؟",
+        a1: "معايا أنا يوسف مباشرة من أول رسالة لحد ما الموقع يطلع للنور.",
+        q2: "هل تستخدم الذكاء الاصطناعي؟",
+        a2: "أحياناً لتسريع شغل متكرر أو تجربة أفكار، لكن القرار والتنسيق النهائي بيكون بإيدي مش نسخ ولصق.",
+        q3: "كم تبلغ تكلفة الموقع؟",
+        a3: "بتفرق حسب حجم الموقع وصفحة واحدة مش زي موقع كامل. ابعتلي فكرتك وهقولك رقم واضح.",
+        q4: "كم يستغرق تنفيذ الموقع؟",
+        a4: "غالباً حوالي أسبوعين للصفحات العادية، وممكن يزيد شوية حسب التفاصيل والتعديلات.",
+        q5: "هل يمكنك إعادة تصميم موقعي الحالي؟",
+        a5: "أيوة، لو الموقع قديم أو تقيل أو شكله مش مظبوط على الموبايل نقدر نعيد بناءه بشكل أنظف.",
+        chatTitle: "خلينا نتكلم",
+        chatLead: "عندك مشروع جديد أو فكرة لسه في دماغك أو موقع محتاج يتظبط؟ ابعتلي وهرد عليك خلال يوم",
+        fName: "الاسم",
+        fEmail: "البريد الإلكتروني",
+        fWeb: "رابط الموقع (اختياري)",
+        opt0: "اختر الباقة",
+        opt1: "صفحة هبوط (~أسبوعين)",
+        opt2: "موقع متكامل",
+        opt3: "إعادة تصميم وتطوير",
+        fMsg: "احكِ لي شوية عن اللي بتعمله.",
+        fSubmit: "إرسال الرسالة",
+        fDone: "وصلت رسالتك، شكراً ليك. هرد عليك خلال 24 ساعة.",
+        ftCopy: "© 2026 يوسف زازا"
+      }
+    };
+
+    var cur = "en";
+    var langBtn = document.getElementById("langBtn");
+
+    function switchLang(next) {
+      cur = next;
+      var t = copy[cur];
+      document.documentElement.lang = cur;
+      document.documentElement.dir = cur === "ar" ? "rtl" : "ltr";
+
+      document.getElementById("brandText").textContent = t.brand;
+      langBtn.textContent = t.lang;
+      document.getElementById("dHome").textContent = t.home;
+      document.getElementById("dWork").textContent = t.work;
+      document.getElementById("dPricing").textContent = t.proc;
+      document.getElementById("dContact").textContent = t.contact;
+      document.getElementById("mHome").textContent = t.home;
+      document.getElementById("mWork").textContent = t.work;
+      document.getElementById("mPricing").textContent = t.proc;
+      document.getElementById("mContact").textContent = t.contact;
+      document.getElementById("navCta").textContent = t.cta;
+      document.getElementById("heroTitle").textContent = t.heroTitle;
+      document.getElementById("heroSub").textContent = t.heroSub;
+      document.getElementById("heroBtn").textContent = t.cta;
+      document.getElementById("statusText").textContent = t.status;
+      document.getElementById("whyTitle").textContent = t.whyTitle;
+      document.getElementById("whyLead").textContent = t.whyLead;
+      document.getElementById("w1Title").textContent = t.w1Title;
+      document.getElementById("w1Desc").textContent = t.w1Desc;
+      document.getElementById("w2Title").textContent = t.w2Title;
+      document.getElementById("w2Desc").textContent = t.w2Desc;
+      document.getElementById("w3Title").textContent = t.w3Title;
+      document.getElementById("w3Desc").textContent = t.w3Desc;
+      document.getElementById("w4Title").textContent = t.w4Title;
+      document.getElementById("w4Desc").textContent = t.w4Desc;
+      document.getElementById("aboutTitle").innerHTML = t.aboutTitle;
+      document.getElementById("aboutStory").textContent = t.aboutStory;
+      document.getElementById("polaroidSub").textContent = t.polaroidSub;
+      document.getElementById("procTitle").textContent = t.procTitle;
+      document.getElementById("procLead").textContent = t.procLead;
+      document.getElementById("p1Title").textContent = t.p1Title;
+      document.getElementById("p1Desc").textContent = t.p1Desc;
+      document.getElementById("p2Title").textContent = t.p2Title;
+      document.getElementById("p2Desc").textContent = t.p2Desc;
+      document.getElementById("p3Title").textContent = t.p3Title;
+      document.getElementById("p3Desc").textContent = t.p3Desc;
+      document.getElementById("p4Title").textContent = t.p4Title;
+      document.getElementById("p4Desc").textContent = t.p4Desc;
+      document.getElementById("faqTitle").textContent = t.faqTitle;
+      document.getElementById("q1").textContent = t.q1;
+      document.getElementById("a1").textContent = t.a1;
+      document.getElementById("q2").textContent = t.q2;
+      document.getElementById("a2").textContent = t.a2;
+      document.getElementById("q3").textContent = t.q3;
+      document.getElementById("a3").textContent = t.a3;
+      document.getElementById("q4").textContent = t.q4;
+      document.getElementById("a4").textContent = t.a4;
+      document.getElementById("q5").textContent = t.q5;
+      document.getElementById("a5").textContent = t.a5;
+      document.getElementById("chatTitle").textContent = t.chatTitle;
+      document.getElementById("chatLead").textContent = t.chatLead;
+      document.getElementById("fName").placeholder = t.fName;
+      document.getElementById("fEmail").placeholder = t.fEmail;
+      document.getElementById("fWeb").placeholder = t.fWeb;
+      document.getElementById("opt0").textContent = t.opt0;
+      document.getElementById("opt1").textContent = t.opt1;
+      document.getElementById("opt2").textContent = t.opt2;
+      document.getElementById("opt3").textContent = t.opt3;
+      document.getElementById("fMsg").placeholder = t.fMsg;
+      document.getElementById("fSubmit").textContent = t.fSubmit;
+      document.getElementById("fDone").textContent = t.fDone;
+      document.getElementById("ftHome").textContent = t.home;
+      document.getElementById("ftWork").textContent = t.work;
+      document.getElementById("ftProc").textContent = t.proc;
+      document.getElementById("ftCont").textContent = t.contact;
+      document.getElementById("ftCopy").textContent = t.ftCopy;
+    }
+
+    langBtn.onclick = function() {
+      switchLang(cur === "en" ? "ar" : "en");
+    };
+  </script>
+</body>
+</html>
